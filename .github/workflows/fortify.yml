@@ -67,6 +67,10 @@ jobs:
       # TODO: Update ENV variables for your application and create the necessary GitHub Secrets.  Helpful hints:
       #   Credentials and release ID should be obtained from your FoD tenant (either Personal Access Token or API Key can be used).
       #   Automated Audit preference should be configured for the release's Static Scan Settings in the Fortify on Demand portal.
+      - name: Looking tenant
+        run: |
+          echo "${{ secrets.FOD_TENANT }}"
+      
       - name: Download Fortify on Demand Universal CI Tool
         uses: fortify/gha-setup-fod-uploader@6e6bb8a33cb476e240929fa8ebc739ff110e7433
       - name: Perform SAST Scan
@@ -74,7 +78,8 @@ jobs:
         env:
           FOD_URL: "https://ams.fortify.com/"
           FOD_API_URL: "https://api.ams.fortify.com/"
-          FOD_TENANT: ${{ secrets.FOD_TENANT }}
+          #FOD_TENANT: ${{ secrets.FOD_TENANT }}
+          FOD_TENANT: "FranklinBank24"
           FOD_USER: ${{ secrets.FOD_USER }}
           FOD_PAT: ${{ secrets.FOD_PAT }}
           FOD_RELEASE_ID: ${{ secrets.FOD_RELEASE_ID }}
@@ -86,7 +91,8 @@ jobs:
         uses: fortify/gha-export-vulnerabilities@fcb374411cff9809028c911dabb8b57dbdae623b
         with:
           fod_base_url: "https://ams.fortify.com/"
-          fod_tenant: ${{ secrets.FOD_TENANT }}
+          #fod_tenant: ${{ secrets.FOD_TENANT }}
+          fod_tenant: "FranklinBank24"
           fod_user: ${{ secrets.FOD_USER }}
           fod_password: ${{ secrets.FOD_PAT }}
           fod_release_id: ${{ secrets.FOD_RELEASE_ID }}
